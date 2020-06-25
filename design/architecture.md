@@ -8,8 +8,12 @@ Since this project is distributed in nature, each node uses a datastore to sync 
 
 ## Datastore
 
-The datastore holds the state of the entire system and has multiple collections - one collection for the state of the system and one collection to be the cumulative incoming job queue.
+The datastore holds the state of the entire system and has multiple collections - one collection for the state of the system and one collection to be the cumulative incoming job queue. This part of the system is integral to the ability of the system to function. Consequently, this section will use a cloud hosted database solution with high availability.
 
-## System state
+### System state
 
 The system state collection holds a record for each node in the system and details about the node-specific job queue for that node. The assumption that this system makes is that each node has the ability to process any job that comes into the job queue, in other words, scheduling does not depend on the capability of nodes and nodes aren't specialized for a certain job type. Each record stores the status of each node, as well as the section of the system level job queue that that node is responsible for.
+
+## Observer node
+
+A special type of node that does not take part in the job scheduling or execution but allows the user to understand the state of the system and how it changes over time. Since this is a distributed system, the observer will be a fully optional part of the system and will be able to be started or stopped on demand.
