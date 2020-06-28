@@ -24,14 +24,14 @@ This collection of documents serves as the cumulative job queue for the system. 
   "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "http://example.com/example.json",
   "type": "object",
-  "title": "node state document",
-  "description": "node state document contains all the information about the node",
+  "title": "Node state document",
+  "description": "Node state document contains all the information about the node.",
   "default": {},
   "examples": [
     {
       "name": "node_1",
       "id": "<uuid>",
-      "job_queue_section": 2,
+      "jobQueueSection": 2,
       "lastSeenAt": 1593249964788,
       "status": "ACTIVE",
       "metadata": {
@@ -44,7 +44,7 @@ This collection of documents serves as the cumulative job queue for the system. 
   "required": [
     "name",
     "id",
-    "job_queue_section",
+    "jobQueueSection",
     "lastSeenAt",
     "status",
     "metadata"
@@ -67,11 +67,11 @@ This collection of documents serves as the cumulative job queue for the system. 
       "default": "",
       "examples": ["<uuid>"]
     },
-    "job_queue_section": {
-      "$id": "#/properties/job_queue_section",
+    "jobQueueSection": {
+      "$id": "#/properties/jobQueueSection",
       "type": "integer",
       "title": "The node's job queue section",
-      "description": "The section of the global job queue that the node is responsible for",
+      "description": "The section of the global job queue that the node is responsible for.",
       "default": 0,
       "examples": [2]
     },
@@ -79,7 +79,7 @@ This collection of documents serves as the cumulative job queue for the system. 
       "$id": "#/properties/lastSeenAt",
       "type": "integer",
       "title": "The node's last seen time",
-      "description": "The last time the node checked in with the global state",
+      "description": "The last time the node checked in with the global state.",
       "default": 0,
       "examples": [1593249964788]
     },
@@ -87,7 +87,7 @@ This collection of documents serves as the cumulative job queue for the system. 
       "$id": "#/properties/status",
       "type": "string",
       "title": "The status of the node",
-      "description": "One of the statuses listed below that the node could be in",
+      "description": "One of the statuses listed below that the node could be in.",
       "default": "ACTIVE",
       "examples": ["ACTIVE"],
       "enum": ["ACTIVE", "BUSY", "TERMINATED"]
@@ -112,7 +112,7 @@ This collection of documents serves as the cumulative job queue for the system. 
           "$id": "#/properties/metadata/properties/createdAt",
           "type": "integer",
           "title": "The document's creation datetime",
-          "description": "The datetime point, in UNIX time, that the document was created",
+          "description": "The datetime point, in UNIX time, that the document was created.",
           "default": 0,
           "examples": [1593249964732]
         },
@@ -120,7 +120,7 @@ This collection of documents serves as the cumulative job queue for the system. 
           "$id": "#/properties/metadata/properties/updatedAt",
           "type": "integer",
           "title": "The document's last update datetime",
-          "description": "The datetime point, in UNIX time, that the document was updated",
+          "description": "The datetime point, in UNIX time, that the document was updated.",
           "default": 0,
           "examples": [1593249964788]
         },
@@ -128,7 +128,7 @@ This collection of documents serves as the cumulative job queue for the system. 
           "$id": "#/properties/metadata/properties/updatedBy",
           "type": "string",
           "title": "The document's updater",
-          "description": "The last node that updated this document",
+          "description": "The last node that updated this document.",
           "default": "",
           "examples": ["<uuid>"]
         }
@@ -141,5 +141,170 @@ This collection of documents serves as the cumulative job queue for the system. 
 ### Appendix B - `jobs` collection schema
 
 ```json
-
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "Job document",
+  "description": "A document that represents each job in the system.",
+  "default": {},
+  "examples": [
+    {
+      "jobName": "test_job",
+      "jobId": "<uuid>",
+      "jobNumber": 30,
+      "status": "QUEUED",
+      "input": {
+        "type": "wait",
+        "payload": {
+          "millis": 5000
+        }
+      },
+      "result": {},
+      "metadata": {
+        "createdAt": 1593341664912,
+        "modifiedAt": 1593341664912,
+        "updatedBy": "<uuid>"
+      }
+    }
+  ],
+  "required": [
+    "jobName",
+    "jobId",
+    "jobNumber",
+    "status",
+    "input",
+    "result",
+    "metadata"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "jobName": {
+      "$id": "#/properties/jobName",
+      "type": "string",
+      "title": "Name of the job",
+      "description": "A human-readable job name given by the user.",
+      "default": "",
+      "examples": ["test_job"]
+    },
+    "jobId": {
+      "$id": "#/properties/jobId",
+      "type": "string",
+      "title": "UUID of the job",
+      "description": "A system generated ID given to the job.",
+      "default": "",
+      "examples": ["<uuid>"]
+    },
+    "jobNumber": {
+      "$id": "#/properties/jobNumber",
+      "type": "integer",
+      "title": "The queue number of the job",
+      "description": "The queue number determines which node will be assigned this job.",
+      "default": 0,
+      "examples": [30]
+    },
+    "status": {
+      "$id": "#/properties/status",
+      "type": "string",
+      "title": "The job status",
+      "description": "An enumerated status of the job.",
+      "default": "",
+      "examples": ["QUEUED"],
+      "enum": ["QUEUED", "STARTED", "SUCCESSFUL", "FAILED", "ERROR"]
+    },
+    "input": {
+      "$id": "#/properties/input",
+      "type": "object",
+      "title": "The input for the job",
+      "description": "The input coming from the user for the job.",
+      "default": {},
+      "examples": [
+        {
+          "type": "wait",
+          "payload": {
+            "millis": 5000
+          }
+        }
+      ],
+      "required": ["type", "payload"],
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "$id": "#/properties/input/properties/type",
+          "type": "string",
+          "title": "The type of the job",
+          "description": "An enumeration to tell the node what to do.",
+          "default": "",
+          "examples": ["wait"]
+        },
+        "payload": {
+          "$id": "#/properties/input/properties/payload",
+          "type": "object",
+          "title": "The (optional) payload that goes along with the type",
+          "description": "The payload will be crosschecked against the expected payload for the type.",
+          "default": {},
+          "examples": [
+            {
+              "millis": 5000
+            }
+          ],
+          "additionalProperties": true
+        }
+      }
+    },
+    "result": {
+      "$id": "#/properties/result",
+      "type": "object",
+      "title": "The result of the job",
+      "description": "This section will contain anything that the job produced as a result.",
+      "default": {},
+      "examples": [{}],
+      "required": [],
+      "additionalProperties": true,
+      "properties": {}
+    },
+    "metadata": {
+      "$id": "#/properties/metadata",
+      "type": "object",
+      "title": "The document's metadata",
+      "description": "Some information about the document itself.",
+      "default": {},
+      "examples": [
+        {
+          "createdAt": 1593249964732,
+          "updatedAt": 1593249964788,
+          "updatedBy": "<uuid>"
+        }
+      ],
+      "required": ["createdAt", "updatedAt", "updatedBy"],
+      "additionalProperties": true,
+      "properties": {
+        "createdAt": {
+          "$id": "#/properties/metadata/properties/createdAt",
+          "type": "integer",
+          "title": "The document's creation datetime",
+          "description": "The datetime point, in UNIX time, that the document was created.",
+          "default": 0,
+          "examples": [1593249964732]
+        },
+        "updatedAt": {
+          "$id": "#/properties/metadata/properties/updatedAt",
+          "type": "integer",
+          "title": "The document's last update datetime",
+          "description": "The datetime point, in UNIX time, that the document was updated.",
+          "default": 0,
+          "examples": [1593249964788]
+        },
+        "updatedBy": {
+          "$id": "#/properties/metadata/properties/updatedBy",
+          "type": "string",
+          "title": "The document's updater",
+          "description": "The last node that updated this document.",
+          "default": "",
+          "examples": ["<uuid>"]
+        }
+      }
+    }
+  }
+}
 ```
