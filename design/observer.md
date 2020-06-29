@@ -16,6 +16,8 @@ The server part of the observer node is a standard API server coupled with stati
 
 The client part of the observer is a simple web application that renders the answers to the questions above in an easy to visualize way. It shows the user the cumulative job queue, the status of each node, the status of the current job being processed and what section of the job queue each node is liable for. This UI also updates at both a user configurable interval as well as through a manual refresh button. It maintains an open connection to the server part of the observer node using a websocket connection.
 
+## Websocket messages
+
 Each websocket messages follows, lightly, the action message pattern that can be seen with the job queue as well. Example below.
 
 ```json
@@ -29,5 +31,9 @@ Each websocket messages follows, lightly, the action message pattern that can be
   }
 }
 ```
+
+## Modes of operation
+
+### Live update
 
 If required, customers can also switch the observer node to "live mode", where events that happen in the system are sent to the observer node, processed, and displayed shortly after they happen. A latency calculation is also displayed on the page so that the customer can get a sense of the freshness of the data.
