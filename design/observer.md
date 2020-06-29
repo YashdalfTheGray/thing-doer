@@ -24,7 +24,10 @@ Each websocket messages follows, lightly, the action message pattern that can be
   "payload": {
     "workerNodeId": "<uuid>",
     "oldStatus": "ACTIVE",
-    "newStatus": "BUSY"
+    "newStatus": "BUSY",
+    "updatedAt": 1593459267416
   }
 }
 ```
+
+If required, customers can also switch the observer node to "live mode", where events that happen in the system are sent to the observer node, processed, and displayed shortly after they happen. A latency calculation is also displayed on the page so that the customer can get a sense of the freshness of the data.
