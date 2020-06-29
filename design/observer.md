@@ -11,3 +11,20 @@ The server part of the observer node is a standard API server coupled with stati
 - how many jobs are queued up?
 - what is the status of each node?
 - what is the current job queue distribution?
+
+## Client
+
+The client part of the observer is a simple web application that renders the answers to the questions above in an easy to visualize way. It shows the user the cumulative job queue, the status of each node, the status of the current job being processed and what section of the job queue each node is liable for. This UI also updates at both a user configurable interval as well as through a manual refresh button. It maintains an open connection to the server part of the observer node using a websocket connection.
+
+Each websocket messages follows, lightly, the action message pattern that can be seen with the job queue as well. Example below.
+
+```json
+{
+  "type": "worker_node_status_change",
+  "payload": {
+    "workerNodeId": "<uuid>",
+    "oldStatus": "ACTIVE",
+    "newStatus": "BUSY"
+  }
+}
+```
