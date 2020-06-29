@@ -34,6 +34,45 @@ Each websocket messages follows, lightly, the action message pattern that can be
 
 ## Modes of operation
 
+### Periodic update
+
+The default mode of operation is the periodic update mode. In this mode, the customer can configure an update duration for this mode. The messages that need to be sent to the client are batched on the server until the client requests an update on the system. The messages are then sent in a batch payload. Example of actions below.
+
+The update request action from the client,
+
+```json
+{
+  "type": "update_request"
+  "payload": {
+    "update_type": "periodic"
+  }
+}
+```
+
+The batched messages from the server.
+
+```json
+{
+  "type": "batched_update_response",
+  "payload": {
+    "messages": [
+      {
+        "type": "...",
+        "payload": {}
+      },
+      {
+        "type": "...",
+        "payload": {}
+      },
+      {
+        "type": "...",
+        "payload": {}
+      }
+    ]
+  }
+}
+```
+
 ### Live update
 
 If required, customers can also switch the observer node to "live mode", where events that happen in the system are sent to the observer node, processed, and displayed shortly after they happen. A latency calculation is also displayed on the page so that the customer can get a sense of the freshness of the data.
