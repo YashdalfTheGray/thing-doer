@@ -107,3 +107,9 @@ An action message is used to switch between the observer modes listed above. The
   }
 }
 ```
+
+## Support for multiple observers
+
+The server part of the observer already supports multiple clients by being able to keep multiple websocket connections open. There is a configurable max clients option as part of the observer and it can be used to limit client connections. Each new connection after max connections will result in an HTTP 509 error ("Bandwidth limit exceeded") error. This can, optionally, be configured to throw a different HTTP error code through the configuration for the observer.
+
+If necessary, multiple observers with different configurations and defaults are also supported by the system.
