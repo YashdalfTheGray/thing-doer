@@ -81,6 +81,8 @@ If required, customers can also switch the observer node to "live mode", where e
 
 The last mode of operation is the manual update. In this mode, the customer manually clicks the refresh button to tell the observer to update the system state. This mode of operation can be used in conjunction with the periodic update mode but not with the live update mode.
 
+Additionally, customers can just operate the observer in manual update mode entirely if they want just a one-off view of the system but nothing else.
+
 The request looks similar to the periodic update request but with one change. The response from the server is structured the same way.
 
 ```json
