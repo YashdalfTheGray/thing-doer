@@ -91,3 +91,17 @@ The request looks similar to the periodic update request but with one change. Th
   }
 }
 ```
+
+### Switching modes
+
+An action message is used to switch between the observer modes listed above. The format of the action message is listed below.
+
+```json
+{
+  "type": "mode_switch"
+  "payload": {
+    "oldMode": "periodic",
+    "newMode": "live"
+  }
+}
+```
