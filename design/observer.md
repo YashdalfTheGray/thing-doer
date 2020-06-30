@@ -76,3 +76,18 @@ The batched messages from the server.
 ### Live update
 
 If required, customers can also switch the observer node to "live mode", where events that happen in the system are sent to the observer node, processed, and displayed shortly after they happen. A latency calculation is also displayed on the page so that the customer can get a sense of the freshness of the data.
+
+### Manual update
+
+The last mode of operation is the manual update. In this mode, the customer manually clicks the refresh button to tell the observer to update the system state. This mode of operation can be used in conjunction with the periodic update mode but not with the live update mode.
+
+The request looks similar to the periodic update request but with one change. The response from the server is structured the same way.
+
+```json
+{
+  "type": "update_request"
+  "payload": {
+    "update_type": "manual"
+  }
+}
+```
