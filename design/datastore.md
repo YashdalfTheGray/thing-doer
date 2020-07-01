@@ -4,6 +4,8 @@ This document covers the datastore. It details the schema of the collections and
 
 - `state`
 - `jobs`
+- `logs`
+- `metrics`
 
 ## Collections
 
@@ -14,6 +16,10 @@ This collection of documents is representative of the state of the system at any
 ### The `jobs` collection
 
 This collection of documents serves as the cumulative job queue for the system. Each node is assigned a section of this job queue and once a node gets assigned a job, it becomes the owner of the document that represents the job. The node is then expected to keep the document updated with the current state of the job as well as publish the results once the job is complete. Since this system is somewhat multipurpose, this collection maintains a complete history of all the jobs processed from the start of the collection. To be able to cull the size of this collection, a singular job deletion request and a batch job deletion request is supported by the system. The schema is included in Appendix B.
+
+### The `logs` collection
+
+### The `metrics` collection
 
 ## Appendices
 
