@@ -23,7 +23,7 @@ This collection contains all of the logs that the system and the nodes generate.
 
 ### The `metrics` collection
 
-This collection, potentially naively, stores metrics emitted from any of the nodes, processor or observer. These metrics include, but are not limited to, the latency of a job request being processed, the number of jobs processed by a node, the number of messages sent to the observer, the latency of the observer while receiving a message, etc. The schema of this should be carefully thought through since time series data within a document store could potentially explode in size. The current idea is to have a document for each time interval and merge all the metrics that the system has for that bucket into the same document. This does make adding metrics an update rather than an insert but it optimizes for storage. Storage has a large impact on the total cost of ownership of the system.
+This collection, potentially naively, stores metrics emitted from any of the nodes, processor or observer. These metrics include, but are not limited to, the latency of a job request being processed, the number of jobs processed by a node, the number of messages sent to the observer, the latency of the observer while receiving a message, etc. The schema of this should be carefully thought through since time series data within a document store could potentially explode in size. The current idea is to have a document for each time interval and merge all the metrics that the system has for that bucket into the same document. This does make adding metrics an update rather than an insert but it optimizes for storage. Storage has a large impact on the total cost of ownership of the system. The schema is included in Appendix D.
 
 ### The `metrics` collection
 
@@ -389,6 +389,170 @@ This collection, potentially naively, stores metrics emitted from any of the nod
           }
         ],
         "$id": "#/properties/context/items"
+      }
+    },
+    "metadata": {
+      "$id": "#/properties/metadata",
+      "type": "object",
+      "title": "The document's metadata",
+      "description": "Some information about the document itself.",
+      "default": {},
+      "examples": [
+        {
+          "createdAt": 1593249964732,
+          "updatedAt": 1593249964788,
+          "updatedBy": "<uuid>"
+        }
+      ],
+      "required": ["createdAt", "updatedAt", "updatedBy"],
+      "additionalProperties": true,
+      "properties": {
+        "createdAt": {
+          "$id": "#/properties/metadata/properties/createdAt",
+          "type": "integer",
+          "title": "The document's creation datetime",
+          "description": "The datetime point, in UNIX time, that the document was created.",
+          "default": 0,
+          "examples": [1593249964732]
+        },
+        "updatedAt": {
+          "$id": "#/properties/metadata/properties/updatedAt",
+          "type": "integer",
+          "title": "The document's last update datetime",
+          "description": "The datetime point, in UNIX time, that the document was updated.",
+          "default": 0,
+          "examples": [1593249964788]
+        },
+        "updatedBy": {
+          "$id": "#/properties/metadata/properties/updatedBy",
+          "type": "string",
+          "title": "The document's updater",
+          "description": "The last node that updated this document.",
+          "default": "",
+          "examples": ["<uuid>"]
+        }
+      }
+    }
+  }
+}
+```
+
+### Appendix D - `metrics` collection schema
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "Metrics document",
+  "description": "A document that contains all of the metrics for a 5 second bucket",
+  "default": {},
+  "examples": [
+    {
+      "bucketStart": "1593341664910",
+      "bucketEnd": "1593341664915",
+      "metrics": {
+        "metricName": {
+          "<uuid>": {
+            "value": 10,
+            "units": "milliseconds"
+          }
+        }
+      },
+      "metadata": {
+        "createdAt": 1593341664912,
+        "modifiedAt": 1593341664912,
+        "updatedBy": "<uuid>"
+      }
+    }
+  ],
+  "required": ["bucketStart", "bucketEnd", "metrics", "metadata"],
+  "additionalProperties": true,
+  "properties": {
+    "bucketStart": {
+      "$id": "#/properties/bucketStart",
+      "type": "string",
+      "title": "The start of the bucket",
+      "description": "The start of the 5 second interval",
+      "default": "",
+      "examples": ["1593341664910"]
+    },
+    "bucketEnd": {
+      "$id": "#/properties/bucketEnd",
+      "type": "string",
+      "title": "The end of the bucket",
+      "description": "The end of hte 5 second interval",
+      "default": "",
+      "examples": ["1593341664915"]
+    },
+    "metrics": {
+      "$id": "#/properties/metrics",
+      "type": "object",
+      "title": "A collection of metrics",
+      "description": "A hash of metrics, keyed by the metric name",
+      "default": {},
+      "examples": [
+        {
+          "metricName": {
+            "<uuid>": {
+              "value": 10,
+              "units": "milliseconds"
+            }
+          }
+        }
+      ],
+      "required": ["metricName"],
+      "additionalProperties": true,
+      "properties": {
+        "metricName": {
+          "$id": "#/properties/metrics/properties/metricName",
+          "type": "object",
+          "title": "The name of the metric being stored",
+          "default": {},
+          "examples": [
+            {
+              "<uuid>": {
+                "value": 10,
+                "units": "milliseconds"
+              }
+            }
+          ],
+          "required": ["<uuid>"],
+          "additionalProperties": true,
+          "properties": {
+            "<uuid>": {
+              "$id": "#/properties/metrics/properties/metricName/properties/<uuid>",
+              "type": "object",
+              "title": "The UUID of the node",
+              "description": "The UUID that represents the node that this metric comes from.",
+              "default": {},
+              "examples": [
+                {
+                  "value": 10,
+                  "units": "milliseconds"
+                }
+              ],
+              "required": ["value", "units"],
+              "additionalProperties": true,
+              "properties": {
+                "value": {
+                  "$id": "#/properties/metrics/properties/metricName/properties/<uuid>/properties/value",
+                  "type": "integer",
+                  "title": "The value of the metric",
+                  "default": 0,
+                  "examples": [10]
+                },
+                "units": {
+                  "$id": "#/properties/metrics/properties/metricName/properties/<uuid>/properties/units",
+                  "type": "string",
+                  "title": "The unit of the metric",
+                  "default": "",
+                  "examples": ["milliseconds"]
+                }
+              }
+            }
+          }
+        }
       }
     },
     "metadata": {
