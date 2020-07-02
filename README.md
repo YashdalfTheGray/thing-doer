@@ -4,6 +4,6 @@ A distributed doer that does things as asked, in some kind of queue or something
 
 ## Sections of this repository
 
-### Design
+### [Design](design/README.md)
 
-There is a folder called design that goes over, in detail, what this thing doer looks like and what the architecture looks like. At a high level, each thing doer adds their state to a table and takes ownership of a job queue. Each incoming job gets assigned to a job queue and then picked up and processed.
+This folder that goes over, in detail, what this thing doer looks like and what the architecture looks like. At a high level, each thing doer adds their state to a table and takes ownership of a job queue. Each incoming job gets assigned to a job queue and then picked up and processed.
