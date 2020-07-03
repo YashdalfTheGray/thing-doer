@@ -42,7 +42,7 @@ The update request action from the client,
 
 ```json
 {
-  "type": "update_request"
+  "type": "update_request",
   "payload": {
     "update_type": "periodic"
   }
@@ -87,7 +87,7 @@ The request looks similar to the periodic update request but with one change. Th
 
 ```json
 {
-  "type": "update_request"
+  "type": "update_request",
   "payload": {
     "update_type": "manual"
   }
@@ -100,7 +100,7 @@ An action message is used to switch between the observer modes listed above. The
 
 ```json
 {
-  "type": "mode_switch"
+  "type": "mode_switch",
   "payload": {
     "oldMode": "periodic",
     "newMode": "live"
