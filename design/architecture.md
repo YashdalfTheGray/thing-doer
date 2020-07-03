@@ -4,7 +4,7 @@ The purpose of this document is to highlight the overall architecture of the sys
 
 ## Processor node
 
-Since this project is distributed in nature, each node uses a datastore to sync its state with the rest of the nodes in the system. At start time, each node tells the datastore about the job queue that it has created. Each node can be in one of five states, initializing, waiting, working, paused, or dead. More detail on these states and their associated transitions is included in the node specific design documentation.
+Since this project is distributed in nature, each node uses a datastore to sync its state with the rest of the nodes in the system. At start time, each node tells the datastore about the job queue that it has created. Each node can be in one of five states, initializing, waiting, working, paused, or unresponsive. More detail on these states and their associated transitions is included in the node specific design documentation.
 
 ## Datastore
 
