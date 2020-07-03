@@ -19,3 +19,7 @@ The states that the processor node can be in are as following
 ### Initializing
 
 In the initializing state of the node, the proccessor node checks the current state of the world by querying the state collection in the datastore. Then it determines, using the length of the collection, what part of the job queue is owned by the new node. Then it sets up its own job queue by creating its own document in the state collection.
+
+### Waiting
+
+There is not much activity happening in the waiting state for the processor node. This state is marked by the node waiting for a job to land in its job queue. While in this state, the node is periodically checking the state collection in the datastore to check and react to changes in job queue assignments as well as checking the job queue for new jobs.
