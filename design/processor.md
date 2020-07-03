@@ -15,3 +15,7 @@ The states that the processor node can be in are as following
 - working
 - paused
 - unresponsive
+
+### Initializing
+
+In the initializing state of the node, the proccessor node checks the current state of the world by querying the state collection in the datastore. Then it determines, using the length of the collection, what part of the job queue is owned by the new node. Then it sets up its own job queue by creating its own document in the state collection.
