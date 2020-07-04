@@ -27,3 +27,7 @@ There is not much activity happening in the waiting state for the processor node
 ### Working
 
 This is the state where the node is working on a job. The start of this state is marked by a job document being updated with the "STARTED" current status. Once a job is started by a node, the node will continue to process it until it is finished. This process does not get interrupted by queue assignment changes. Once a job has been started by a node, the only interruption is caused by node failure.
+
+### Paused
+
+This state represents a node that is ready to work on jobs in the system but does not have a job queue assignment. This state can potentially arise when consensus between the nodes hasn't been reached regarding the job queue assignment. Additionally, this state can also be triggered by the user by changing the node runtime configuration. This is helpful in case the user wants to emulate node failure without having to take the node down completely. The ability to trigger a paused state can be blocked by setting a flag in the startup configuration of a node. If set, this will ignore the manual pause trigger from the runtime configuration.
