@@ -28,7 +28,7 @@ This collection, potentially naively, stores metrics emitted from any of the nod
 
 ### The `config` collection
 
-This collection maintains the runtime and startup configurations for nodes. Each document in this collection contains configuration values that can be shared across nodes to allow the user to customize behavior while starting up a new node or while the node is running. This collection is subject to eventual consistency since each node will only periodically check their runtime configuration and pull changes.
+This collection maintains the runtime and startup configurations for nodes. Each document in this collection contains configuration values that can be shared across nodes to allow the user to customize behavior while starting up a new node or while the node is running. This collection is subject to eventual consistency since each node will only periodically check their runtime configuration and pull changes. The schema is included in Appendix E.
 
 ## Appendices
 
@@ -557,6 +557,103 @@ This collection maintains the runtime and startup configurations for nodes. Each
           }
         }
       }
+    },
+    "metadata": {
+      "$id": "#/properties/metadata",
+      "type": "object",
+      "title": "The document's metadata",
+      "description": "Some information about the document itself.",
+      "default": {},
+      "examples": [
+        {
+          "createdAt": 1593249964732,
+          "updatedAt": 1593249964788,
+          "updatedBy": "<uuid>"
+        }
+      ],
+      "required": ["createdAt", "updatedAt", "updatedBy"],
+      "additionalProperties": true,
+      "properties": {
+        "createdAt": {
+          "$id": "#/properties/metadata/properties/createdAt",
+          "type": "integer",
+          "title": "The document's creation datetime",
+          "description": "The datetime point, in UNIX time, that the document was created.",
+          "default": 0,
+          "examples": [1593249964732]
+        },
+        "updatedAt": {
+          "$id": "#/properties/metadata/properties/updatedAt",
+          "type": "integer",
+          "title": "The document's last update datetime",
+          "description": "The datetime point, in UNIX time, that the document was updated.",
+          "default": 0,
+          "examples": [1593249964788]
+        },
+        "updatedBy": {
+          "$id": "#/properties/metadata/properties/updatedBy",
+          "type": "string",
+          "title": "The document's updater",
+          "description": "The last node that updated this document.",
+          "default": "",
+          "examples": ["<uuid>"]
+        }
+      }
+    }
+  }
+}
+```
+
+### Appendix E - `config` collection schema
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "Config document",
+  "description": "A document that contains configuration keys for a node",
+  "default": {},
+  "examples": [
+    {
+      "type": "runtime",
+      "configId": "<uuid>",
+      "keys": {},
+      "metadata": {
+        "createdAt": 1593341664912,
+        "modifiedAt": 1593341664912,
+        "updatedBy": "<uuid>"
+      }
+    }
+  ],
+  "required": ["type", "configId", "keys", "metadata"],
+  "additionalProperties": true,
+  "properties": {
+    "type": {
+      "$id": "#/properties/type",
+      "type": "string",
+      "title": "The type of the configuration",
+      "default": "",
+      "examples": ["runtime"],
+      "enum": ["runtime", "startup"]
+    },
+    "configId": {
+      "$id": "#/properties/configId",
+      "type": "string",
+      "title": "The id of the config",
+      "description": "A UUID that can be referenced by the node startup",
+      "default": "",
+      "examples": ["<uuid>"]
+    },
+    "keys": {
+      "$id": "#/properties/keys",
+      "type": "object",
+      "title": "The actual configuration keys",
+      "default": {},
+      "examples": [{}],
+      "required": [],
+      "additionalProperties": true,
+      "properties": {}
     },
     "metadata": {
       "$id": "#/properties/metadata",
