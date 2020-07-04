@@ -6,6 +6,7 @@ This document covers the datastore. It details the schema of the collections and
 - `jobs`
 - `logs`
 - `metrics`
+- `config`
 
 ## Collections
 
@@ -25,7 +26,9 @@ This collection contains all of the logs that the system and the nodes generate.
 
 This collection, potentially naively, stores metrics emitted from any of the nodes, processor or observer. These metrics include, but are not limited to, the latency of a job request being processed, the number of jobs processed by a node, the number of messages sent to the observer, the latency of the observer while receiving a message, etc. The schema of this should be carefully thought through since time series data within a document store could potentially explode in size. The current idea is to have a document for each time interval and merge all the metrics that the system has for that bucket into the same document. This does make adding metrics an update rather than an insert but it optimizes for storage. Storage has a large impact on the total cost of ownership of the system. The schema is included in Appendix D.
 
-### The `metrics` collection
+### The `config` collection
+
+This collection maintains the runtime and startup configurations for nodes. Each document in this collection contains configuration values that can be shared across nodes to allow the user to customize behavior while starting up a new node or while the node is running. This collection is subject to eventual consistency since each node will only periodically check their runtime configuration and pull changes.
 
 ## Appendices
 
