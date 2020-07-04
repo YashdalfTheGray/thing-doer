@@ -23,3 +23,7 @@ In the initializing state of the node, the proccessor node checks the current st
 ### Waiting
 
 There is not much activity happening in the waiting state for the processor node. This state is marked by the node waiting for a job to land in its job queue. While in this state, the node is periodically checking the state collection in the datastore to check and react to changes in job queue assignments as well as checking the job queue for new jobs.
+
+### Working
+
+This is the state where the node is working on a job. The start of this state is marked by a job document being updated with the "STARTED" current status. Once a job is started by a node, the node will continue to process it until it is finished. This process does not get interrupted by queue assignment changes. Once a job has been started by a node, the only interruption is caused by node failure.
