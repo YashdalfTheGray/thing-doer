@@ -1,6 +1,6 @@
 # thing-doer
 
-A distributed doer that does things as asked, in some kind of queue or something. More design to come.
+A distributed doer that does things as asked, in some kind of queue or something. More design to come. A lot of this design is the first thought and will change as the system evolves.
 
 ## Sections of this repository
 
