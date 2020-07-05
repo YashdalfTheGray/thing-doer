@@ -18,6 +18,10 @@ The system state collection holds a record for each node in the system and detai
 
 The job queue collection holds all of the jobs that are, will, and were processed through the system. Each job coming into the queue is assigned a sequential job ID and this ID is used to determine which processor node will be assigned this job. Once a job gets picked up, the node is then responsible for updating the progress as well as the results of the job.
 
+### Logs and metrics
+
+There are separate collections for logs and metrics in the system. This allows users to carefully and granuarly observe the state of the system and also realize where the bottlenecks are.
+
 ## Observer node
 
 A special type of node that does not take part in the job scheduling or execution but allows the user to understand the state of the system and how it changes over time. Since this is a distributed system, the observer will be a fully optional part of the system and will be able to be started or stopped on demand.
