@@ -31,3 +31,7 @@ This is the state where the node is working on a job. The start of this state is
 ### Paused
 
 This state represents a node that is ready to work on jobs in the system but does not have a job queue assignment. This state can potentially arise when consensus between the nodes hasn't been reached regarding the job queue assignment. Additionally, this state can also be triggered by the user by changing the node runtime configuration. This is helpful in case the user wants to emulate node failure without having to take the node down completely. The ability to trigger a paused state can be blocked by setting a flag in the startup configuration of a node. If set, this will ignore the manual pause trigger from the runtime configuration.
+
+### Unresponsive
+
+This state represents a node that has not checked into the state collection for the preconfigured health check time period. Once a node is considered unresponsive, the other nodes that have checked into the state collection will take over the job queue that was previously owned by the unresponsive node.
