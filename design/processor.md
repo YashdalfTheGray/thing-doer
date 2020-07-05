@@ -35,3 +35,9 @@ This state represents a node that is ready to work on jobs in the system but doe
 ### Unresponsive
 
 This state represents a node that has not checked into the state collection for the preconfigured health check time period. Once a node is considered unresponsive, the other nodes that have checked into the state collection will take over the job queue that was previously owned by the unresponsive node.
+
+## Health checks
+
+There is a health check period that the node reads from the runtime/startup configuration. This health check period specified how often the node checks back into the state collection, updates its own information and pulls new information about the rest of the processor nodes.
+
+If a node fails a configurable number of health checks, another node marks the node's state document status as "unresponsive" and it then has another health check period to respond. If the node fails to response, the job queue that the failed node is reponsible for is redistributed across all the other active nodes.
