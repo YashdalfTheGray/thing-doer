@@ -1,0 +1,19 @@
+{
+  "name": "processor",
+  "version": "1.0.0",
+  "description": "a thing-doer processor written in typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YashdalfTheGray/thing-doer.git"
+  },
+  "author": "Yash Kulshrestha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YashdalfTheGray/thing-doer/issues"
+  },
+  "homepage": "https://github.com/YashdalfTheGray/thing-doer#readme"
+}
