@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "ava",
-    "start:dev": "ts-node index.ts",
-    "prestart:prod": "tsc",
+    "start:dev": "ts-node src/index.ts",
+    "prebuild:prod": "npx rimraf dist",
+    "build:prod": "tsc",
+    "prestart:prod": "npm run build:prod",
     "start:prod": "node dist/index.js",
     "start": "npm run start:dev"
   },
