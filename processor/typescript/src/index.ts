@@ -3,6 +3,9 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import chalk from 'chalk';
 
+import { wrap } from './utils';
+import { pingHandler } from './middleware';
+
 const port = process.env.PORT || process.argv[2] || 8080;
 
 const app = express();
@@ -10,6 +13,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(morgan('common'));
 const apiRouter = express.Router();
+
+apiRouter.get('/ping', wrap(pingHandler));
 
 app.use('/api', apiRouter);
 
