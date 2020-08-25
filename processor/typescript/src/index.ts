@@ -15,7 +15,7 @@ app.use(morgan('common'));
 const apiRouter = express.Router();
 
 apiRouter.get('/ping', wrap(pingHandler));
-apiRouter.get('/deep-ping', wrap(deepPingHandler));
+apiRouter.get('/deep_ping', wrap(deepPingHandler));
 
 app.use('/api', apiRouter);
 
