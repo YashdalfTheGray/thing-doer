@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import chalk from 'chalk';
 
 import { wrap } from './utils';
-import { pingHandler } from './middleware';
+import { pingHandler, deepPingHandler } from './middleware';
 
 const port = process.env.PORT || process.argv[2] || 8080;
 
@@ -15,6 +15,7 @@ app.use(morgan('common'));
 const apiRouter = express.Router();
 
 apiRouter.get('/ping', wrap(pingHandler));
+apiRouter.get('/deep-ping', wrap(deepPingHandler));
 
 app.use('/api', apiRouter);
 
