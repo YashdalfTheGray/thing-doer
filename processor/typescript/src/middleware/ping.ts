@@ -1,6 +1,6 @@
-import { RequestHandler, Request, Response } from 'express';
+import { RequestHandler } from 'express';
 
-const pingHandler: RequestHandler = (req: Request, res: Response) => {
+const pingHandler: RequestHandler = (req, res) => {
   res.status(200).send('pong\n').end();
 };
 
