@@ -7,6 +7,7 @@ const pingHandler: RequestHandler = (req, res) => {
 const deepPingHandler: RequestHandler = (req, res) => {
   res.status(200).json({
     status: 'okay',
+    apiTokenFound: !!process.env.SECRET_TOKEN,
   });
 };
 
