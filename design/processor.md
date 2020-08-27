@@ -41,3 +41,11 @@ This state represents a node that has not checked into the state collection for 
 There is a health check period that the node reads from the runtime/startup configuration. This health check period specified how often the node checks back into the state collection, updates its own information and pulls new information about the rest of the processor nodes.
 
 If a node fails a configurable number of health checks, another node marks the node's state document status as "unresponsive" and it then has another health check period to respond. If the node fails to response, the job queue that the failed node is reponsible for is redistributed across all the other active nodes.
+
+## API
+
+All the API endpoints for the processor node are going to be mounted under the `/api` URL path and the listings below assume that.
+
+### `GET /ping`
+
+This is the standard ping health check, will always respond with a 200 and the string `pong\n`. Good for determining routing to the application through the network infrastructure.
