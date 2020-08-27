@@ -42,6 +42,10 @@ There is a health check period that the node reads from the runtime/startup conf
 
 If a node fails a configurable number of health checks, another node marks the node's state document status as "unresponsive" and it then has another health check period to respond. If the node fails to response, the job queue that the failed node is reponsible for is redistributed across all the other active nodes.
 
+## Credentials
+
+Inevitably, this application is going to need credentials to access various services/data stores to properly operate. Getting the credentials is done through a common executable that will write the credentials to file and the application will be given enough information in the file to configure itself. More detail to come.
+
 ## API
 
 All the API endpoints for the processor node are going to be mounted under the `/api` URL path and the listings below assume that.
