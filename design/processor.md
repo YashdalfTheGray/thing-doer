@@ -49,3 +49,11 @@ All the API endpoints for the processor node are going to be mounted under the `
 ### `GET /ping`
 
 This is the standard ping health check, will always respond with a 200 and the string `pong\n`. Good for determining routing to the application through the network infrastructure.
+
+### `GET /deep_ping`
+
+This is a deeper health check that returns JSON that details the internal state of the processor. It returns JSON so as to be machine parseable. It also provides a `status` field with 3 possible states
+
+- `okay` - all the internal checks passed and the application is ready to go
+- `partial_success` - at least one of the internal checks failed, application may not work as intended
+- `error` - all the internal checks have failed and the application needs reconfiguration
