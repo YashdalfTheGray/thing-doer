@@ -5,13 +5,13 @@ const pingHandler: RequestHandler = (_, res) => {
 };
 
 const deepPingHandler: RequestHandler = (_, res) => {
-  const apiTokenFound = !!process.env.SECRET_TOKEN;
-
-  const checks = [apiTokenFound];
+  const checks = {
+    apiTokenFound: !!process.env.SECRET_TOKEN,
+  };
 
   res.status(200).json({
-    status: determineStatus(checks),
-    apiTokenFound: !!process.env.SECRET_TOKEN,
+    status: determineStatus(Object.values(checks)),
+    ...checks,
   });
 };
 
