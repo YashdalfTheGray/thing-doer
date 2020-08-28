@@ -1,12 +1,16 @@
 import { RequestHandler } from 'express';
 
-const pingHandler: RequestHandler = (req, res) => {
+const pingHandler: RequestHandler = (_, res) => {
   res.status(200).send('pong\n').end();
 };
 
-const deepPingHandler: RequestHandler = (req, res) => {
+const deepPingHandler: RequestHandler = (_, res) => {
+  const apiTokenFound = !!process.env.SECRET_TOKEN;
+
+  const checks = [apiTokenFound];
+
   res.status(200).json({
-    status: 'okay',
+    status: determineStatus(checks),
     apiTokenFound: !!process.env.SECRET_TOKEN,
   });
 };
