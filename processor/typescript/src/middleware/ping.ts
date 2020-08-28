@@ -11,4 +11,15 @@ const deepPingHandler: RequestHandler = (req, res) => {
   });
 };
 
+const determineStatus = (checksList: boolean[]) {
+  const checkPassed = (check: boolean) => check;
+  if (checksList.every(checkPassed)) {
+    return 'okay';
+  } else if (checksList.some(checkPassed)) {
+    return 'partial_success';
+  } else {
+    return 'error'
+  }
+}
+
 export { pingHandler, deepPingHandler };
