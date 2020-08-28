@@ -15,15 +15,15 @@ const deepPingHandler: RequestHandler = (_, res) => {
   });
 };
 
-const determineStatus = (checksList: boolean[]) {
+const determineStatus = (checksList: boolean[]) => {
   const checkPassed = (check: boolean) => check;
   if (checksList.every(checkPassed)) {
     return 'okay';
   } else if (checksList.some(checkPassed)) {
     return 'partial_success';
   } else {
-    return 'error'
+    return 'error';
   }
-}
+};
 
 export { pingHandler, deepPingHandler };
