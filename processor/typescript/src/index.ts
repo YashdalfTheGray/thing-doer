@@ -1,10 +1,12 @@
+import * as dotenv from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import chalk from 'chalk';
 
-import { wrap } from './utils';
 import { pingHandler, deepPingHandler } from './middleware';
+
+dotenv.config();
 
 const port = process.env.PORT || process.argv[2] || 8080;
 
@@ -14,8 +16,8 @@ app.use(bodyParser.json());
 app.use(morgan('common'));
 const apiRouter = express.Router();
 
-apiRouter.get('/ping', wrap(pingHandler));
-apiRouter.get('/deep_ping', wrap(deepPingHandler));
+apiRouter.get('/ping', pingHandler);
+apiRouter.get('/deep_ping', deepPingHandler);
 
 app.use('/api', apiRouter);
 
