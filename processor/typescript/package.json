@@ -6,11 +6,12 @@
   "scripts": {
     "test": "ava",
     "start:dev": "ts-node src/index.ts",
+    "start:watch": "ts-node-dev --debug --watch .env --rs src/index.ts",
     "prebuild:prod": "npx rimraf dist",
     "build:prod": "tsc",
     "prestart:prod": "npm run build:prod",
     "start:prod": "node dist/index.js",
-    "start": "npm run start:dev"
+    "start": "npm run start:watch"
   },
   "repository": {
     "type": "git",
